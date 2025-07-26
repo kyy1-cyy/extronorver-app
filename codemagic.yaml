@@ -1,0 +1,21 @@
+workflows:
+  android-build:
+    name: Android Build
+    instance_type: linux_x2
+    environment:
+      python: 3.9
+    scripts:
+      - name: Install system dependencies
+        script: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip build-essential git python3-dev libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev
+      - name: Install Python dependencies
+        script: |
+          pip3 install --upgrade pip
+          pip3 install buildozer cython==0.29.32
+          pip3 install -r requirements.txt
+      - name: Build with Buildozer
+        script: |
+          buildozer -v android debug
+    artifacts:
+      - bin/*.apk
