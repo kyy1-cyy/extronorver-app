@@ -3,59 +3,45 @@ name: Build APK
 on:
   push:
     branches:
-      - master
-      - main
+      - "master"
+      - "main"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '11'
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y \
-          python3-pip \
-          build-essential \
-          git \
-          python3 \
-          python3-dev \
-          ffmpeg \
-          libsdl2-dev \
-          libsdl2-image-dev \
-          libsdl2-mixer-dev \
-          libsdl2-ttf-dev \
-          libportmidi-dev \
-          libswscale-dev \
-          libavformat-dev \
-          libavcodec-dev \
-          zlib1g-dev
-        pip install --upgrade pip
-        pip install buildozer cython==0.29.32
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
 
-    - name: Accept Android licenses
-      run: |
-        yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+      - name: Install buildozer and dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y -V ca-certificates lsb-release
+          sudo apt-get install -y -V git zip unzip openjdk-11-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev
+          pip install --upgrade pip
+          pip install buildozer cython==0.29.32
 
-    - name: Build with Buildozer
-      run: buildozer android debug
+      - name: Build with buildozer
+        run: |
+          buildozer android debug
 
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: ExtroNorver-APK
-        path: bin/*.apk
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ExtroNorver-APK
+          path: bin/*.apk
