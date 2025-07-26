@@ -107,6 +107,9 @@ android.ndk = 25b
 # (str) Android SDK path (if empty, it will be downloaded)
 #android.sdk_path =
 
+# (str) Version of the Android build tools to use
+android.build_tools = 34.0.0
+
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
 android.permissions = INTERNET, WRITE_EXTERNAL_STORAGE
