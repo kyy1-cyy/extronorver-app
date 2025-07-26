@@ -92,6 +92,21 @@ android.presplash_color = #262626
 #icon.adaptive_foreground.filename = %(source.dir)s/data/icon_fg.png
 #icon.adaptive_background.filename = %(source.dir)s/data/icon_bg.png
 
+# (int) Android API to use
+android.api = 31
+
+# (int) Minimum API required
+android.minapi = 21
+
+# (int) Android NDK version to use
+android.ndk = 25b
+
+# (str) Android NDK path (if empty, it will be downloaded)
+#android.ndk_path =
+
+# (str) Android SDK path (if empty, it will be downloaded)
+#android.sdk_path =
+
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions/#build-options-1 for all the supported syntaxes and properties)
 android.permissions = INTERNET, WRITE_EXTERNAL_STORAGE
