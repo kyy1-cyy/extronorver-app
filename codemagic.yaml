@@ -2,8 +2,6 @@ workflows:
   android-build:
     name: Android Build
     instance_type: linux_x2
-    environment:
-      python: 3.9
     scripts:
       - name: Install system dependencies
         script: |
