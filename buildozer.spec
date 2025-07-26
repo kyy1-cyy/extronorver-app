@@ -105,7 +105,7 @@ android.ndk = 25b
 #android.ndk_path =
 
 # (str) Android SDK path (if empty, it will be downloaded)
-#android.sdk_path =
+android.sdk_path = $ANDROID_HOME
 
 # (str) Version of the Android build tools to use
 android.build_tools = 34.0.0
